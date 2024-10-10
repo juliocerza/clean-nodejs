@@ -1,3 +1,4 @@
+const AppError = require("../shared/errors/AppError");
 const cadastrarUsuarioUseCase = require("./registrar-usuario-usecase");
 
 describe("Registrar usuario Usecase", function () {
@@ -20,5 +21,11 @@ describe("Registrar usuario Usecase", function () {
     expect(output).toBeUndefined();
     expect(usuarioRepository.cadastrar).toHaveBeenCalledWith(usuarioDTO);
     expect(usuarioRepository.cadastrar).toHaveBeenCalledTimes(1);
+  });
+
+  test("Deve retornar um true error se o usuariorepository nao for fornecido", async function () {
+    expect(() => cadastrarUsuarioUseCase({})).toThrow(
+      new AppError(AppError.dependencias)
+    );
   });
 });
